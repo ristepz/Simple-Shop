@@ -1,0 +1,30 @@
+Public:
+ - Home with Product listings and left sidebar with filtering
+ - Public login page
+ - Register user page
+
+Dashboard:
+  - Add User page
+  - Add product page
+  - Add category page
+===============================================
+JSON
+
+Add Product
+{
+	"title": "Dnevna Sofa",
+	"category": 1,
+	"price": 250.36,
+	"image": "sofa image",
+	"description": "Super sofa za rucanje"
+}
+----------------------------------------------
+Add User
+{
+	"first_name": "Riste",
+	"last_name": "Pazarkoski",
+	"email": "ristepz30@gmail.com",
+	"password": "toreador@1",
+	"currency": "EUR",
+	"role": "admin"
+}
