@@ -8,7 +8,6 @@ import AddCategory from './views/dashboard/AddCategory';
 
 const UserAuth = (to, from, next) => {
   const token = localStorage.getItem('token');
-  console.log('TOKEN: ', token);
   if (token) {
     next();
   } else {
@@ -28,7 +27,13 @@ export default new Router({
     },
     {
       path: '/dashboard',
-      component: Login
+      component: Login,
+      beforeEnter: (to, from, next) => {
+        const token = localStorage.getItem('token');
+        if (token) {
+          next('/add-user');
+        }
+      }
     },
     {
       path: '/add-user',
