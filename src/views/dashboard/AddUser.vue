@@ -1,38 +1,41 @@
 <template>
   <div>
     <Header />
-    <div class="add-user">
-      <div class="form-control">
-        <input type="text" v-model="firstName" placeholder="First Name" />
-      </div>
-      <div class="form-control">
-        <input type="text" v-model="lastName" placeholder="Last Name" />
-      </div>
-      <div class="form-control">
-        <input type="text" v-model="email" placeholder="Email" />
-      </div>
-      <div class="form-control">
-        <input type="password" v-model="password" placeholder="Password" />
-      </div>
-      <div class="form-control">
-        <select v-model="currency">
-          <option value>Select Currency</option>
-          <option value="USD">USD</option>
-          <option value="EUR">EUR</option>
-        </select>
-      </div>
-    </div>
+    <AddUser @userAdded="getAllUsers" />
+    <ListUsers :users="allUsers" />
   </div>
 </template>
 
 <script>
+import { AdminApi } from "../../services/Auth";
 import Header from "../../components/dashboard/Header";
+import AddUser from "../../components/dashboard/AddUser";
+import ListUsers from "../../components/dashboard/ListUsers";
 export default {
+  data() {
+    return {
+      allUsers: []
+    };
+  },
+  created() {
+      this.getAllUsers();
+  },
+  methods: {
+    getAllUsers() {
+      AdminApi.get("/users")
+        .then(resp => {
+          this.allUsers = resp.data.data;
+        })
+        .catch(err => {});
+    }
+  },
   components: {
-    Header
+    Header,
+    AddUser,
+    ListUsers
   }
 };
 </script>
 
-<style>
+<style scoped>
 </style>

@@ -1,7 +1,8 @@
 import axios from 'axios';
 
-const AdminApi = axios.create({
-    baseURL: 'http://localhost:3300'
+export const AdminApi = axios.create({
+    baseURL: 'http://localhost:3300',
+    headers: { 'Token': localStorage.getItem('token') }
 });
 
 /**

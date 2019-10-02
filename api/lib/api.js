@@ -141,11 +141,11 @@ class Api {
     * @param {*} res 
     */
     static addUser(req, res) {
-        // const token = req.get('Token');
-        // if (!Api.validateToken(token)) {
-        //     res.status(500).json({ success: false, data: 'Login session expired.' });
-        //     return;
-        // }
+        const token = req.get('Token');
+        if (!Api.validateToken(token)) {
+            res.status(500).json({ success: false, data: 'Login session expired.' });
+            return;
+        }
         const first_name = req.body.first_name;
         const last_name = req.body.last_name;
         const email = req.body.email;
@@ -160,6 +160,26 @@ class Api {
                 }
                 res.status(200).json({ success: true });
             });
+    }
+
+    /**
+     * Get all users
+     * @param {*} req 
+     * @param {*} res 
+     */
+    static getAllUsers(req, res) {
+        const token = req.get('Token');
+        if (!Api.validateToken(token)) {
+            res.status(500).json({ success: false, data: 'Login session expired.' });
+            return;
+        }
+        DB.all(`SELECT * FROM users`, [], (err, rows) => {
+            if (err) {
+                res.status(500).json({ error: err });
+            } else {
+                res.status(200).json({ success: true, data: rows });
+            }
+        });
     }
 
     /**

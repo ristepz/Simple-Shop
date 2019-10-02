@@ -70,6 +70,11 @@ app.get('/products/:minPrice/:maxPrice', (req, res) => Api.filterProductsByPrice
 app.post('/user', (req, res) => Api.addUser(req, res));
 
 /**
+ * Get all users
+ */
+app.get('/users', (req, res) => Api.getAllUsers(req, res));
+
+/**
  * Get user
  */
 app.get('/user/:id', (req, res) => Api.getUser(req, res));
