@@ -141,18 +141,19 @@ class Api {
     * @param {*} res 
     */
     static addUser(req, res) {
-        const token = req.get('Token');
-        if (!Api.validateToken(token)) {
-            res.status(500).json({ success: false, data: 'Login session expired.' });
-            return;
-        }
+        // const token = req.get('Token');
+        // if (!Api.validateToken(token)) {
+        //     res.status(500).json({ success: false, data: 'Login session expired.' });
+        //     return;
+        // }
         const first_name = req.body.first_name;
         const last_name = req.body.last_name;
         const email = req.body.email;
         const password = crypto.createHash('md5').update(req.body.password).digest("hex");
         const currency = req.body.currency;
-        DB.run(`INSERT INTO users(first_name, last_name, email, password, currency) VALUES (?, ?, ?, ?, ?) `,
-            [first_name, last_name, email, password, currency], (err) => {
+        const role = req.body.role || 'user';
+        DB.run(`INSERT INTO users(first_name, last_name, email, password, currency, role) VALUES (?, ?, ?, ?, ?, ?) `,
+            [first_name, last_name, email, password, currency, role], (err) => {
                 if (err) {
                     res.status(500).json({ error: err });
                     return;
