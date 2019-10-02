@@ -1,16 +1,11 @@
 <template>
   <div id="app">
-    <Header />
+    <router-view />
   </div>
 </template>
 
 <script>
-import Header from "./components/Header";
-export default {
-  components: {
-    Header
-  }
-};
+export default {};
 </script>
 
 <style>
@@ -19,12 +14,16 @@ export default {
   margin: 0;
   padding: 0;
 }
+html,
+body {
+  height: 100%;
+}
 body {
   font-family: "Hind Guntur", sans-serif;
   font-size: 16px;
   color: #575757;
 }
-.container{
+.container {
   width: 100%;
   max-width: 1140px;
   margin: 0 auto;

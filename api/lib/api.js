@@ -121,7 +121,7 @@ class Api {
     static filterProductsByPrice(req, res) {
         const minPrice = req.params.minPrice;
         const maxPrice = req.params.maxPrice;
-    
+
         if (!minPrice || !maxPrice) {
             res.status(200).json({ success: true, data: [] });
         }
@@ -189,7 +189,14 @@ class Api {
     static loginUser(req, res) {
         const email = req.body.email;
         const password = crypto.createHash('md5').update(req.body.password).digest("hex");
-        DB.all(`SELECT * FROM users WHERE email=? AND password=?`, [email, password], (err, rows) => {
+        const role = req.body.role;
+        let sql = 'SELECT * FROM users WHERE email=? AND password=?';
+        let params = [email, password];
+        if(role){
+            sql += ' AND role=?';
+            params.push(role);
+        }
+        DB.all(sql, params, (err, rows) => {
             if (err) {
                 res.status(500).json({ error: err });
             } else {
