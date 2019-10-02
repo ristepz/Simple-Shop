@@ -23,4 +23,7 @@ export default {};
 nav.dashboard-menu{
     background: #f4f4f4;
 }
+.nav-links li a.router-link-active{
+    border-bottom: 4px solid #303030;
+}
 </style>

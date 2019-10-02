@@ -32,6 +32,8 @@ export default new Router({
         const token = localStorage.getItem('token');
         if (token) {
           next('/add-user');
+        } else {
+          next();
         }
       }
     },
