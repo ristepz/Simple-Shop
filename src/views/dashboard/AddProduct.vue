@@ -26,12 +26,14 @@
         >{{message}}</p>
       </div>
     </div>
+    <ListProducts :products="allProducts" />
   </div>
 </template>
 
 <script>
 import { AdminApi } from "../../services/Auth";
 import Header from "../../components/dashboard/Header";
+import ListProducts from '../../components/dashboard/ListProducts';
 export default {
   data() {
     return {
@@ -42,7 +44,11 @@ export default {
       description: "",
       success: false,
       message: "",
+      allProducts: []
     };
+  },
+  created(){
+    this.getAllProducts();
   },
   methods: {
     AddProduct() {
@@ -60,10 +66,18 @@ export default {
             : "Product can not be created at this moment.";
         })
         .catch(err => {});
+    },
+    getAllProducts() {
+      AdminApi.get("/products")
+        .then(resp => {
+          this.allProducts = resp.data.data;
+        })
+        .catch(err => {});
     }
   },
   components: {
-    Header
+    Header,
+    ListProducts
   }
 };
 </script>
