@@ -1,7 +1,6 @@
 <template>
   <div class="container">
-      <h3>List All Products</h3>
-    <table>
+    <table class="stripe-table">
       <thead>
         <tr>
           <th>Title</th>

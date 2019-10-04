@@ -1,8 +1,8 @@
 <template>
   <div>
     <Header />
-    <div class="add-user">
-      <h4>Add New Product</h4>
+    <div class="container">
+      <h4 class="page-title">Add New Product</h4>
       <div class="form-control">
         <input type="text" v-model="title" placeholder="Title" />
       </div>

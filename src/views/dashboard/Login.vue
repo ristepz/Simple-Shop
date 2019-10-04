@@ -1,7 +1,7 @@
 <template>
   <div class="dashboard dashboard-login">
     <div class="login-form">
-      <h4>Login</h4>
+      <h4 class="page-title">Login</h4>
       <div class="form-control">
         <label>Email</label>
         <input type="text" :class="{'invalid': invalidEmail}" v-model="email" placeholder="Email" />
@@ -51,9 +51,9 @@ export default {
             // Login Failed
             this.message = resp.data.data;
           } else {
-              // Login success
-              localStorage.setItem('token', resp.data.data);
-              this.$router.replace('/add-user');
+            // Login success
+            localStorage.setItem("token", resp.data.data);
+            this.$router.replace("/add-user");
           }
         })
         .catch(err => {
@@ -66,21 +66,32 @@ export default {
 </script>
 
 <style>
-body {
-  background-image: linear-gradient(
-    1.3deg,
-    rgba(91, 117, 163, 1) 11.4%,
-    rgba(68, 98, 128, 1) 77%
-  );
-}
 div.login-form {
-  width: 400px;
+  width: 500px;
   margin: 0 auto;
   background: #fff;
   padding: 30px;
   transform: translateY(50%);
+  -webkit-box-shadow: 0px 0px 18px -4px rgba(0, 0, 0, 0.46);
+  -moz-box-shadow: 0px 0px 18px -4px rgba(0, 0, 0, 0.46);
+  box-shadow: 0px 0px 18px -4px rgba(0, 0, 0, 0.46);
 }
 div.login-form h4 {
   font-weight: 300;
+}
+p.validation-error{
+  font-size: 12px;
+  color: #b10000;
+  margin: 10px 0;
+}
+
+p.alert{
+  display: block;
+  padding: 8px;
+  margin: 15px 0 10px 0;
+}
+p.alert-success{
+  background: #4fb8bc;
+  color: #fff;
 }
 </style>

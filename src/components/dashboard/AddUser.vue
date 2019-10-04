@@ -1,6 +1,6 @@
 <template>
-  <div class="add-user">
-    <h4>Add New User</h4>
+  <div class="container">
+    <h4 class="page-title">Add New User</h4>
     <div class="form-control">
       <input type="text" v-model="firstName" placeholder="First Name" />
     </div>
@@ -82,14 +82,3 @@ export default {
   }
 };
 </script>
-
-<style>
-div.add-user {
-  width: 50%;
-  margin: 15px auto;
-}
-div.add-user h4 {
-  color: #fff;
-  font-weight: 300;
-}
-</style>

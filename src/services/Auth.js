@@ -1,13 +1,10 @@
 import axios from 'axios';
 
 export const AdminApi = axios.create({
-    baseURL: 'http://localhost:3300',
-    headers: { 'Token': localStorage.getItem('token') }
+    baseURL: 'http://localhost:3300'
 });
 
-export const PublicApi = axios.create({
-    baseURL: 'http://localhost:3300',
-});
+
 /**
  * 
  * @param {*} email 

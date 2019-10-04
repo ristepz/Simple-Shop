@@ -1,7 +1,6 @@
 <template>
   <div class="container">
-      <h3>List All Users</h3>
-    <table>
+    <table class="stripe-table">
       <thead>
         <tr>
           <th>First Name</th>

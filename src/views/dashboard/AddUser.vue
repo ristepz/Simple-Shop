@@ -18,7 +18,8 @@ export default {
     };
   },
   created() {
-      this.getAllUsers();
+    AdminApi.defaults.headers.common["Token"] = localStorage.getItem("token");
+    this.getAllUsers();
   },
   methods: {
     getAllUsers() {

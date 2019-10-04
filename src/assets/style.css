@@ -1,0 +1,64 @@
+h4.page-title {
+    color: #171717;
+    font-weight: 500;
+    font-size: 22px;
+    border-bottom: 1px #c4c4c4 solid;
+    margin-bottom: 15px;
+}
+
+div.form-control {
+    display: block;
+    clear: both;
+    overflow: hidden;
+    margin-bottom: 12px;
+}
+
+div.form-control input[type="text"], div.form-control input[type="email"], div.form-control input[type="password"], div.form-control select, div.form-control textarea {
+    width: 500px;
+    height: 40px;
+    box-sizing: border-box;
+    padding: 5px;
+    border: 1px #62b9bd solid;
+    font-family: "Hind Guntur", sans-serif;
+    font-size: 16px;
+    color: #575757;
+}
+div.form-control input.invalid{
+    border-color: #b10000 !important;
+}
+div.form-control textarea{
+    height: 90px !important;
+}
+div.form-control button{
+    background: #369599;
+    padding: 12px 60px;
+    border: 1px #fff solid;
+    color: #fff;
+    font-size: 16px;
+}
+table.stripe-table{
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px #fff solid;
+}
+table.stripe-table thead tr{
+    background: #047176;
+    color: #fff;
+}
+table.stripe-table thead tr th{
+    padding: 8px;
+    text-align: left;
+    border-left: 1px #fff solid;
+    border-bottom: 1px #fff solid;
+}
+table.stripe-table tbody tr td{
+    padding: 8px;
+    border-left: 1px #fff solid;
+    border-bottom: 1px #fff solid;
+}
+table.stripe-table tbody tr:nth-child(even) td{
+    background: #8acfd2;
+}
+table.stripe-table tbody tr:nth-child(odd) td{
+    background: #369599;
+}
