@@ -4,19 +4,26 @@
       <div class="container">
         <span>Welcome to Pataku Furniture Store !</span>
         <ul class="user-menu">
-          <li>
-            <router-link to="/add-user">Add User</router-link>
-          </li>
-          <li>
-            <router-link to="/add-product">Add Product</router-link>
-          </li>
-          <li>
-            <router-link to="/add-category">Add Category</router-link>
-          </li>
-          <li>
+          <template v-if="isLoggedInUserAdmin()">
+            <li>
+              <router-link to="/add-user">Add User</router-link>
+            </li>
+            <li>
+              <router-link to="/add-product">Add Product</router-link>
+            </li>
+            <li>
+              <router-link to="/add-category">Add Category</router-link>
+            </li>
+          </template>
+          <li v-if="isLoggedIn()">
             <a href="#" @click.prevent="logout">
               <i class="fas fa-sign-out-alt"></i>&nbsp;Logout
             </a>
+          </li>
+          <li v-else>
+            <router-link to="/login">
+              <i class="fas fa-user-lock"></i>&nbsp;Login
+            </router-link>
           </li>
         </ul>
       </div>
@@ -39,10 +46,18 @@
     <div class="main-nav">
       <div class="container">
         <ul>
-          <li><a>Home</a></li>
-          <li><a>Categories</a></li>
-          <li><a>About</a></li>
-          <li><a>Contact</a></li>
+          <li>
+            <a>Home</a>
+          </li>
+          <li>
+            <a>Categories</a>
+          </li>
+          <li>
+            <a>About</a>
+          </li>
+          <li>
+            <a>Contact</a>
+          </li>
         </ul>
       </div>
     </div>
@@ -54,7 +69,16 @@ export default {
   methods: {
     logout() {
       localStorage.removeItem("token");
-      this.$router.push("/dashboard");
+      localStorage.removeItem("user_role");
+      this.$router.push("/");
+    },
+    isLoggedIn() {
+      return localStorage.getItem("token");
+    },
+    isLoggedInUserAdmin() {
+      const token = localStorage.getItem("token");
+      const userRole = localStorage.getItem("user_role");
+      return token && userRole && userRole === "admin";
     }
   }
 };
@@ -164,7 +188,7 @@ div.main-nav ul li a {
   font-weight: 600;
   padding: 0 20px;
 }
-div.main-nav ul li a:hover{
+div.main-nav ul li a:hover {
   color: #333;
 }
 </style>

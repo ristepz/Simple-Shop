@@ -217,6 +217,7 @@ class Api {
             sql += ' AND role=?';
             params.push(role);
         }
+    
         DB.all(sql, params, (err, rows) => {
             if (err) {
                 res.status(500).json({ error: err });
@@ -226,7 +227,7 @@ class Api {
                 } else {
                     const tokenData = JSON.stringify({ email: email, password: password });
                     const encryptedToken = Api.generateToken(tokenData);
-                    res.status(200).json({ success: true, data: encryptedToken });
+                    res.status(200).json({ success: true, token: encryptedToken, role: rows[0].role  });
                 }
             }
         });

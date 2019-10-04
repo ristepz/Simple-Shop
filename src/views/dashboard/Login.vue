@@ -52,8 +52,13 @@ export default {
             this.message = resp.data.data;
           } else {
             // Login success
-            localStorage.setItem("token", resp.data.data);
-            this.$router.replace("/add-user");
+            localStorage.setItem("token", resp.data.token);
+            localStorage.setItem("user_role", resp.data.role);
+            if (resp.data.role === "admin") {
+              this.$router.replace("/add-user");
+            } else {
+              this.$router.replace("/");
+            }
           }
         })
         .catch(err => {
@@ -79,18 +84,18 @@ div.login-form {
 div.login-form h4 {
   font-weight: 300;
 }
-p.validation-error{
+p.validation-error {
   font-size: 12px;
   color: #b10000;
   margin: 10px 0;
 }
 
-p.alert{
+p.alert {
   display: block;
   padding: 8px;
   margin: 15px 0 10px 0;
 }
-p.alert-success{
+p.alert-success {
   background: #4fb8bc;
   color: #fff;
 }

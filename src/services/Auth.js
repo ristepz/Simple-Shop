@@ -11,5 +11,5 @@ export const AdminApi = axios.create({
  * @param {*} password 
  */
 export const AdminLogin = (email, password) => {
-    return AdminApi.post('/user/auth', { email, password, role: 'admin' });
+    return AdminApi.post('/user/auth', { email, password });
 }

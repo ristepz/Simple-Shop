@@ -8,10 +8,11 @@ import AddCategory from './views/dashboard/AddCategory';
 
 const UserAuth = (to, from, next) => {
   const token = localStorage.getItem('token');
-  if (token) {
+  const role = localStorage.getItem('user_role');
+  if (token && role === 'admin') {
     next();
   } else {
-    next('/dashboard');
+    next('/');
   }
 };
 
@@ -26,13 +27,17 @@ export default new Router({
       component: Home
     },
     {
-      path: '/dashboard',
+      path: '/login',
       component: Login,
       beforeEnter: (to, from, next) => {
         const token = localStorage.getItem('token');
-        if (token) {
+        const role = localStorage.getItem('user_role');
+        if (token && role && role === 'admin') {
           next('/add-user');
-        } else {
+        } else if (token && role && role === 'user') {
+          next('/');
+        }
+        else {
           next();
         }
       }
