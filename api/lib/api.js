@@ -24,7 +24,11 @@ class Api {
     * @param {*} res 
     */
     static addCategory(req, res) {
-        const token = req.body.token;
+        const token = req.get('Token');
+        if (!Api.validateToken(token)) {
+            res.status(500).json({ success: false, data: 'Login session expired.' });
+            return;
+        }
         if (!Api.validateToken(token)) {
             res.status(500).json({ success: false, data: 'Login session expired.' });
             return;

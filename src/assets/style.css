@@ -55,6 +55,7 @@ table.stripe-table tbody tr td{
     padding: 8px;
     border-left: 1px #fff solid;
     border-bottom: 1px #fff solid;
+    color: #fff !important;
 }
 table.stripe-table tbody tr:nth-child(even) td{
     background: #8acfd2;

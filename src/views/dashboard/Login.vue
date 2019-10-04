@@ -47,13 +47,13 @@ export default {
       }
       AdminLogin(this.email, this.password)
         .then(resp => {
+          console.log(resp);
           if (!resp.data.success) {
             // Login Failed
             this.message = resp.data.data;
           } else {
             // Login success
-            localStorage.setItem("token", resp.data.token);
-            localStorage.setItem("user_role", resp.data.role);
+            this.$store.commit('setUserLogin', {token: resp.data.token, role: resp.data.role});
             if (resp.data.role === "admin") {
               this.$router.replace("/add-user");
             } else {

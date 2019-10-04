@@ -4,7 +4,7 @@
       <div class="container">
         <span>Welcome to Pataku Furniture Store !</span>
         <ul class="user-menu">
-          <template v-if="isLoggedInUserAdmin()">
+          <template v-if="isLoggedInUserAdmin">
             <li>
               <router-link to="/add-user">Add User</router-link>
             </li>
@@ -15,7 +15,7 @@
               <router-link to="/add-category">Add Category</router-link>
             </li>
           </template>
-          <li v-if="isLoggedIn()">
+          <li v-if="isLoggedIn">
             <a href="#" @click.prevent="logout">
               <i class="fas fa-sign-out-alt"></i>&nbsp;Logout
             </a>
@@ -70,14 +70,17 @@ export default {
     logout() {
       localStorage.removeItem("token");
       localStorage.removeItem("user_role");
-      this.$router.push("/");
-    },
+      this.$store.commit('setUserLogin', {token: '', role: ''});
+      this.$router.push("/").catch(() => {});
+    }
+  },
+  computed: {
     isLoggedIn() {
-      return localStorage.getItem("token");
+      return this.$store.state.token;
     },
     isLoggedInUserAdmin() {
-      const token = localStorage.getItem("token");
-      const userRole = localStorage.getItem("user_role");
+      const token = this.$store.state.token;
+      const userRole = this.$store.state.role;
       return token && userRole && userRole === "admin";
     }
   }

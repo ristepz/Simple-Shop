@@ -1,11 +1,14 @@
 <template>
   <div>
     <Header />
+    <ProductListings />
   </div>
 </template>
 
 <script>
 import Header from "../components/dashboard/Header";
+import ProductListings from './ProductListings';
+
 export default {
   data() {
     return {
@@ -18,6 +21,7 @@ export default {
   },
   components: {
     Header,
+    ProductListings,
   }
 };
 </script>

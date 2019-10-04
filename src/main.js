@@ -8,5 +8,15 @@ Vue.config.productionTip = false
 new Vue({
   router,
   store,
+  beforeCreate(){
+    const token = localStorage.getItem('token');
+    const role = localStorage.getItem('user_role');
+    if(token && role){
+      const payload = {
+        token, role
+      };
+      this.$store.commit('setUserLogin', payload);
+    }
+  },
   render: h => h(App)
 }).$mount('#app')

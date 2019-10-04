@@ -8,12 +8,14 @@
       </div>
       <div class="form-control">
         <select v-model="category">
-          <option value="1">Category 1</option>
-          <option value="2">Category 2</option>
+          <option :value="c.id" v-for="(c, index) in categories" :key="`cc-${index}`">{{c.title}}</option>
         </select>
       </div>
       <div class="form-control">
         <input type="text" v-model="price" placeholder="Price" />
+      </div>
+      <div class="form-control">
+        <input type="text" v-model="image" placeholder="Image Url" />
       </div>
       <div class="form-control">
         <textarea v-model="description" placeholder="Description"></textarea>
@@ -44,14 +46,17 @@ export default {
       description: "",
       success: false,
       message: "",
-      allProducts: []
+      allProducts: [],
+      categories: []
     };
   },
   created(){
     this.getAllProducts();
+    this.getCategories();
   },
   methods: {
     AddProduct() {
+      AdminApi.defaults.headers.common["Token"] = localStorage.getItem("token");
       AdminApi.post("/product", {
         title: this.title,
         category: this.category,
@@ -64,6 +69,7 @@ export default {
           this.message = resp.data.success
             ? "Product Created Successfully"
             : "Product can not be created at this moment.";
+            this.getAllProducts();
         })
         .catch(err => {});
     },
@@ -71,6 +77,14 @@ export default {
       AdminApi.get("/products")
         .then(resp => {
           this.allProducts = resp.data.data;
+        })
+        .catch(err => {});
+    },
+    getCategories() {
+      AdminApi.get("/categories")
+        .then(resp => {
+          this.categories = resp.data.data;
+          this.category = this.categories[0].id;
         })
         .catch(err => {});
     }
