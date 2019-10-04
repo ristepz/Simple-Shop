@@ -31,15 +31,25 @@
     <div class="logo-area">
       <div class="container">
         <div class="logo">
-          <img src="@/assets/logo.jpg" />
+          <router-link to="/">
+            <img src="@/assets/logo.jpg" />
+          </router-link>
         </div>
         <div class="search">
           <input type="text" placeholder="Search Store..." />
           <i class="fas fa-search"></i>
         </div>
-        <div class="my-cart">
-          <span class="cart-count">0</span>
+        <div class="my-cart" @mouseenter="showMiniCart = true" @mouseleave="showMiniCart = false">
+          <span class="cart-count">{{productsInCart}}</span>
           <i class="fas fa-shopping-cart"></i> My Cart
+        </div>
+        <div class="mini-cart" v-show="showMiniCart">
+          <ul>
+            <li v-for="(p, i) in miniCart" :key="`prd-${i}`">
+              <span :style="{'background': 'url(http://localhost:8080/products/' + p.image + ')'}"></span>
+              <h3>{{p.title}} | {{$store.state.currency}} {{p.price}}</h3>
+            </li>
+          </ul>
         </div>
       </div>
     </div>
@@ -66,11 +76,16 @@
 
 <script>
 export default {
+  data(){
+    return{
+      showMiniCart: false
+    }
+  },
   methods: {
     logout() {
       localStorage.removeItem("token");
       localStorage.removeItem("user_role");
-      this.$store.commit('setUserLogin', {token: '', role: ''});
+      this.$store.commit("setUserLogin", { token: "", role: "" });
       this.$router.push("/").catch(() => {});
     }
   },
@@ -82,6 +97,12 @@ export default {
       const token = this.$store.state.token;
       const userRole = this.$store.state.role;
       return token && userRole && userRole === "admin";
+    },
+    productsInCart() {
+      return Object.keys(this.$store.state.cart).length;
+    },
+    miniCart() {
+      return this.$store.state.cart;
     }
   }
 };
@@ -121,8 +142,12 @@ div.logo {
 div.logo-area {
   padding: 16px 0;
   background: #fff;
+  position: relative;
+}
+div.logo-area:after {
+  content: "";
   clear: both;
-  overflow: hidden;
+  display: table;
 }
 div.search {
   float: left;
@@ -193,5 +218,33 @@ div.main-nav ul li a {
 }
 div.main-nav ul li a:hover {
   color: #333;
+}
+div.mini-cart {
+  position: absolute;
+  width: 250px;
+  height: 300px;
+  background: #fff;
+  border: 1px #999 solid;
+  right: 100px;
+  top: 70px;
+  z-index: 9999;
+  -webkit-box-shadow: 0px 0px 14px 0px rgba(0, 0, 0, 0.37);
+  -moz-box-shadow: 0px 0px 14px 0px rgba(0, 0, 0, 0.37);
+  box-shadow: 0px 0px 14px 0px rgba(0, 0, 0, 0.37);
+}
+div.mini-cart ul{
+  list-style: none;
+}
+div.mini-cart ul li{
+  display: block;
+  clear: both;
+  overflow: hidden;
+}
+div.mini-cart ul li span{
+  float: left;
+  width: 60px;
+  height: 60px;
+  display: block;
+  background-size: 60px 60px;
 }
 </style>

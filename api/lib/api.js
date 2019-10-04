@@ -231,7 +231,7 @@ class Api {
                 } else {
                     const tokenData = JSON.stringify({ email: email, password: password });
                     const encryptedToken = Api.generateToken(tokenData);
-                    res.status(200).json({ success: true, token: encryptedToken, role: rows[0].role  });
+                    res.status(200).json({ success: true, token: encryptedToken, role: rows[0].role, currency: rows[0].currency  });
                 }
             }
         });

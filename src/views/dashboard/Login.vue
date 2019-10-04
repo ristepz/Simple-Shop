@@ -53,7 +53,11 @@ export default {
             this.message = resp.data.data;
           } else {
             // Login success
-            this.$store.commit('setUserLogin', {token: resp.data.token, role: resp.data.role});
+            this.$store.commit('setUserLogin', {
+              token: resp.data.token, 
+              role: resp.data.role,
+              currency: resp.data.currency
+              });
             if (resp.data.role === "admin") {
               this.$router.replace("/add-user");
             } else {
