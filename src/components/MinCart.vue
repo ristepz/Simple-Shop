@@ -1,5 +1,5 @@
 <template>
-  <div class="my-cart" @mouseenter="showMiniCart = true" @mouseleave="showMiniCart = false">
+  <div class="my-cart" @click="gotoCheckout" @mouseenter="showMiniCart = true" @mouseleave="showMiniCart = false">
     <span class="cart-count">{{productsInCart}}</span>
     <i class="fas fa-shopping-cart"></i> My Cart
     <div class="mini-cart" v-show="showMiniCart && Object.keys(miniCart).length">
@@ -12,7 +12,7 @@
             {{$store.state.currency | currencyFormater}}
             <strong>{{p.price | priceFormat}}</strong>
           </h3>
-          <i @click="removeProduct(p.id)" class="remove-product fas fa-trash-alt"></i>
+          <i @click.prevent="removeProduct(p.id)" class="remove-product fas fa-trash-alt"></i>
         </li>
       </ul>
     </div>
@@ -30,6 +30,9 @@ export default {
   methods: {
     removeProduct(id) {
       this.$store.commit("removeFromCart", id);
+    },
+    gotoCheckout(){
+      this.$router.push('/checkout')
     }
   },
   computed: {

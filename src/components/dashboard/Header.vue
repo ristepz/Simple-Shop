@@ -45,10 +45,8 @@
     <div class="main-nav">
       <div class="container">
         <ul>
-          <li><a>Home</a></li>
-          <li><a>Categories</a></li>
-          <li><a>About</a></li>
-          <li><a>Contact</a></li>
+          <li><router-link to="/">Home</router-link></li>
+          <li><router-link to="/categories">Categories</router-link></li>
         </ul>
       </div>
     </div>

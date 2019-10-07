@@ -249,6 +249,7 @@ div.listings-wrap {
     color: #fff;
     font-weight: 600;
     padding: 0 20px;
+    text-decoration: none;
   }
   div.main-nav ul li a:hover {
     color: #333;

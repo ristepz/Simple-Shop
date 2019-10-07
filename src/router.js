@@ -6,6 +6,8 @@ import AddUser from './views/dashboard/AddUser';
 import AddProduct from './views/dashboard/AddProduct';
 import AddCategory from './views/dashboard/AddCategory';
 import SingleProductPage from './views/SingleProductPage';
+import CategoryPage from './views/CategoryPage';
+import CheckoutPage from './views/CheckoutPage';
 
 const UserAuth = (to, from, next) => {
   const token = localStorage.getItem('token');
@@ -61,6 +63,14 @@ export default new Router({
     {
       path: '/product/:id',
       component: SingleProductPage
+    },
+    {
+      path: '/categories',
+      component: CategoryPage
+    },
+    {
+      path: '/checkout',
+      component: CheckoutPage
     }
   ]
 });

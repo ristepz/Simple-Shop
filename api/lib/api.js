@@ -93,11 +93,11 @@ class Api {
     * @param {*} res 
     */
     static getProduct(req, res) {
-        DB.all(`SELECT * FROM products WHERE id=? LIMIT 1`, [req.body.id], (err, rows) => {
+        DB.all(`SELECT * FROM products WHERE id=? LIMIT 1`, [req.params.id], (err, rows) => {
             if (err) {
                 res.status(500).json({ error: err });
             } else {
-                res.status(200).json({ success: true, data: rows });
+                res.status(200).json({ success: true, data: rows[0] });
             }
         });
     }
