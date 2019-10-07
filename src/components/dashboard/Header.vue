@@ -48,7 +48,7 @@
               <li v-for="(p, i) in miniCart" :key="`prd-${i}`">
                 <span :style="{'background': 'url(' + imageUrl + p.image + ')'}"></span>
                 <h3>{{p.title}}</h3>
-                <h3>{{$store.state.currency}} {{p.price}}</h3>
+                <h3>{{$store.state.currency}} <strong>{{p.price}}</strong></h3>
               </li>
             </ul>
           </div>
@@ -58,18 +58,10 @@
     <div class="main-nav">
       <div class="container">
         <ul>
-          <li>
-            <a>Home</a>
-          </li>
-          <li>
-            <a>Categories</a>
-          </li>
-          <li>
-            <a>About</a>
-          </li>
-          <li>
-            <a>Contact</a>
-          </li>
+          <li><a>Home</a></li>
+          <li><a>Categories</a></li>
+          <li><a>About</a></li>
+          <li><a>Contact</a></li>
         </ul>
       </div>
     </div>
