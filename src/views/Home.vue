@@ -6,7 +6,6 @@
 </template>
 
 <script>
-import Header from "../components/dashboard/Header";
 import ProductListings from './ProductListings';
 
 export default {
@@ -20,7 +19,6 @@ export default {
   methods: {
   },
   components: {
-    Header,
     ProductListings,
   }
 };

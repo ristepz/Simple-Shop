@@ -2,6 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
+import Header from './components/dashboard/Header';
 
 Vue.config.productionTip = false
 
@@ -19,6 +20,7 @@ Vue.filter('currencyFormater', (val) => {
 Vue.filter('priceFormat', (val) => {
   return val.toFixed(2);
 });
+Vue.component('Header', Header);
 
 new Vue({
   router,

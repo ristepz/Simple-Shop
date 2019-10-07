@@ -138,6 +138,10 @@ div.listings-wrap {
       font-size: 14px !important;
       text-transform: uppercase;
   }
+  h3.prd-details a{
+    color: #fff !important;
+    text-decoration: none;
+  }
 
   div.top-bar {
     height: 46px;

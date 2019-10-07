@@ -5,7 +5,9 @@
       <div class="product" v-for="(p, i) in products" :key="i">
         <figure>
           <div class="add-to-cart">
-            <h3 class="prd-details">Details</h3>
+            <h3 class="prd-details">
+              <router-link :to="`/product/${p.id}`">Details</router-link>
+            </h3>
             <i class="fas fa-cart-plus" @click="addToCart(p)"></i>
           </div>
           <img :src="`http://localhost:8080/products/${p.image}`" />
@@ -25,15 +27,15 @@ import FiltersComp from "../components/FiltersComp";
 export default {
   data() {
     return {
-      currency: "",
+      currency: ""
     };
   },
   created() {
     this.currency = this.$store.state.currency;
-    this.$store.dispatch('getAllProducts');
+    this.$store.dispatch("getAllProducts");
   },
-  computed:{
-    products(){
+  computed: {
+    products() {
       return this.$store.state.products;
     }
   },
