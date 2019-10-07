@@ -35,24 +35,28 @@
 <script>
 import { AdminApi } from "../../services/Auth";
 import Header from "../../components/dashboard/Header";
-import ListProducts from '../../components/dashboard/ListProducts';
+import ListProducts from "../../components/dashboard/ListProducts";
 export default {
   data() {
     return {
       title: "",
-      category: "1",
       price: "0.00",
       image: "",
+      category: "1",
       description: "",
       success: false,
       message: "",
-      allProducts: [],
-      categories: []
+      allProducts: []
     };
   },
-  created(){
+  created() {
     this.getAllProducts();
-    this.getCategories();
+    this.$store.dispatch("getCategories");
+    this.$on("categoryDataReceived", data => {
+      if (typeof data !== 'undefined' && data.length) {
+        this.category = data[0].id;
+      }
+    });
   },
   methods: {
     AddProduct() {
@@ -69,7 +73,7 @@ export default {
           this.message = resp.data.success
             ? "Product Created Successfully"
             : "Product can not be created at this moment.";
-            this.getAllProducts();
+          this.getAllProducts();
         })
         .catch(err => {});
     },
@@ -79,14 +83,13 @@ export default {
           this.allProducts = resp.data.data;
         })
         .catch(err => {});
-    },
-    getCategories() {
-      AdminApi.get("/categories")
-        .then(resp => {
-          this.categories = resp.data.data;
-          this.category = this.categories[0].id;
-        })
-        .catch(err => {});
+    }
+  },
+  computed: {
+    categories() {
+      const categoryData = this.$store.state.categories;
+      this.$emit("categoryDataReceived", categoryData);
+      return categoryData;
     }
   },
   components: {

@@ -39,20 +39,7 @@
           <input type="text" placeholder="Search Store..." />
           <i class="fas fa-search"></i>
         </div>
-        <div class="my-cart" @mouseenter="showMiniCart = true" @mouseleave="showMiniCart = false">
-          <span class="cart-count">{{productsInCart}}</span>
-          <i class="fas fa-shopping-cart"></i> My Cart
-          <div class="mini-cart" v-show="showMiniCart">
-            <div class="arrow-up"></div>
-            <ul>
-              <li v-for="(p, i) in miniCart" :key="`prd-${i}`">
-                <span :style="{'background': 'url(' + imageUrl + p.image + ')'}"></span>
-                <h3>{{p.title}}</h3>
-                <h3>{{$store.state.currency}} <strong>{{p.price}}</strong></h3>
-              </li>
-            </ul>
-          </div>
-        </div>
+        <MiniCart />
       </div>
     </div>
     <div class="main-nav">
@@ -69,13 +56,8 @@
 </template>
 
 <script>
+import MiniCart from '../MinCart';
 export default {
-  data() {
-    return {
-      showMiniCart: false,
-      imageUrl: "http://localhost:8080/products/"
-    };
-  },
   methods: {
     logout() {
       localStorage.removeItem("token");
@@ -92,13 +74,10 @@ export default {
       const token = this.$store.state.token;
       const userRole = this.$store.state.role;
       return token && userRole && userRole === "admin";
-    },
-    productsInCart() {
-      return Object.keys(this.$store.state.cart).length;
-    },
-    miniCart() {
-      return this.$store.state.cart;
     }
+  },
+  components:{
+    MiniCart
   }
 };
 </script>

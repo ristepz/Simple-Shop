@@ -108,7 +108,15 @@ class Api {
      * @param {*} res 
      */
     static filterProductsByCategory(req, res) {
-        DB.all(`SELECT * FROM products WHERE category=?`, [req.params.category], (err, rows) => {
+        let $query = "SELECT * FROM products WHERE category=?";
+        let params = [req.params.category];
+        const selectedCategory = req.params.category;
+        if(selectedCategory == -1){
+            $query = "SELECT * FROM products";
+            params = [];
+        }
+        
+        DB.all($query, params, (err, rows) => {
             if (err) {
                 res.status(500).json({ error: err });
             } else {
@@ -125,12 +133,14 @@ class Api {
     static filterProductsByPrice(req, res) {
         const minPrice = req.params.minPrice;
         const maxPrice = req.params.maxPrice;
-
+        let query = 'SELECT * FROM products GROUP BY price HAVING price >=? AND price <=?';
+        let params = [minPrice, maxPrice];
         if (!minPrice || !maxPrice) {
-            res.status(200).json({ success: true, data: [] });
+            query = 'SELECT * FROM products';
+            params = [];
         }
 
-        DB.all(`SELECT * FROM products GROUP BY price HAVING price >=? AND price <=?`, [minPrice, maxPrice], (err, rows) => {
+        DB.all(query, params, (err, rows) => {
             if (err) {
                 res.status(500).json({ error: err });
             } else {

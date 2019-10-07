@@ -66,11 +66,6 @@ table.stripe-table tbody tr:nth-child(odd) td{
 div.listings-wrap {
     display: flex;
   }
-  div.filters-column {
-    height: 1000px;
-    background: #333;
-    flex: 0 0 400px;
-  }
   div.product-listings {
     display: flex;
     flex-wrap: wrap;
@@ -283,6 +278,7 @@ div.listings-wrap {
     font-size: 12px;
     font-weight: 300;
     border-bottom: 1px #fff solid;
+    position: relative
   }
   div.mini-cart ul li h3 {
     font-weight: 300;
@@ -304,4 +300,12 @@ div.listings-wrap {
     left: 50%;
     transform: translateX(-20px);
     top: -20px;
+  }
+  i.remove-product{
+      position: absolute;
+      right: 10px;
+      color: rgb(167, 0, 0) !important;
+      top: 50%;
+      font-size: 14px !important;
+      cursor: pointer;
   }

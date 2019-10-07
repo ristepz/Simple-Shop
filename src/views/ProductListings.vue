@@ -1,6 +1,6 @@
 <template>
   <div class="listings-wrap">
-    <div class="filters-column"></div>
+    <FiltersComp />
     <div class="product-listings">
       <div class="product" v-for="(p, i) in products" :key="i">
         <figure>
@@ -11,7 +11,7 @@
           <img :src="`http://localhost:8080/products/${p.image}`" />
           <figcaption>
             <h3>{{p.title}}</h3>
-            <span class="product-price">{{currency}} {{p.price}}</span>
+            <span class="product-price">{{currency | currencyFormater}} {{p.price | priceFormat}}</span>
           </figcaption>
         </figure>
       </div>
@@ -21,29 +21,30 @@
 
 <script>
 import { AdminApi } from "../services/Auth";
+import FiltersComp from "../components/FiltersComp";
 export default {
   data() {
     return {
       currency: "",
-      products: []
     };
   },
   created() {
     this.currency = this.$store.state.currency;
-    this.getAllProducts();
+    this.$store.dispatch('getAllProducts');
   },
-  methods: {
-    getAllProducts() {
-      AdminApi.get("/products")
-        .then(resp => {
-          this.products = resp.data.data;
-          this.$store.commit("setProducts", resp.data.data);
-        })
-        .catch(err => {});
-    },
-    addToCart(product) {
-        this.$store.commit('addToCart', product);
+  computed:{
+    products(){
+      return this.$store.state.products;
     }
+  },
+
+  methods: {
+    addToCart(product) {
+      this.$store.commit("addToCart", product);
+    }
+  },
+  components: {
+    FiltersComp
   }
 };
 </script>
