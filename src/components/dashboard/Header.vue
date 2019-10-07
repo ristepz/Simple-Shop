@@ -42,14 +42,16 @@
         <div class="my-cart" @mouseenter="showMiniCart = true" @mouseleave="showMiniCart = false">
           <span class="cart-count">{{productsInCart}}</span>
           <i class="fas fa-shopping-cart"></i> My Cart
-        </div>
-        <div class="mini-cart" v-show="showMiniCart">
-          <ul>
-            <li v-for="(p, i) in miniCart" :key="`prd-${i}`">
-              <span :style="{'background': 'url(http://localhost:8080/products/' + p.image + ')'}"></span>
-              <h3>{{p.title}} | {{$store.state.currency}} {{p.price}}</h3>
-            </li>
-          </ul>
+          <div class="mini-cart" v-show="showMiniCart">
+            <div class="arrow-up"></div>
+            <ul>
+              <li v-for="(p, i) in miniCart" :key="`prd-${i}`">
+                <span :style="{'background': 'url(' + imageUrl + p.image + ')'}"></span>
+                <h3>{{p.title}}</h3>
+                <h3>{{$store.state.currency}} {{p.price}}</h3>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
@@ -76,10 +78,11 @@
 
 <script>
 export default {
-  data(){
-    return{
-      showMiniCart: false
-    }
+  data() {
+    return {
+      showMiniCart: false,
+      imageUrl: "http://localhost:8080/products/"
+    };
   },
   methods: {
     logout() {
@@ -223,28 +226,51 @@ div.mini-cart {
   position: absolute;
   width: 250px;
   height: 300px;
-  background: #fff;
+  background: rgb(235, 235, 235);
   border: 1px #999 solid;
-  right: 100px;
-  top: 70px;
+  right: -60px;
+  top: 50px;
   z-index: 9999;
   -webkit-box-shadow: 0px 0px 14px 0px rgba(0, 0, 0, 0.37);
   -moz-box-shadow: 0px 0px 14px 0px rgba(0, 0, 0, 0.37);
   box-shadow: 0px 0px 14px 0px rgba(0, 0, 0, 0.37);
 }
-div.mini-cart ul{
+div.mini-cart ul {
   list-style: none;
+  width: 250px;
+  height: 300px;
+  overflow-y: auto;
 }
-div.mini-cart ul li{
+div.mini-cart ul li {
   display: block;
   clear: both;
   overflow: hidden;
+  margin: 0 0 12px 0;
+  padding: 5px;
+  box-sizing: border-box;
+  font-size: 12px;
+  font-weight: 300;
+  border-bottom: 1px #fff solid;
 }
-div.mini-cart ul li span{
+div.mini-cart ul li h3 {
+  font-weight: 300;
+}
+div.mini-cart ul li span {
   float: left;
-  width: 60px;
-  height: 60px;
+  width: 50px;
+  height: 50px;
+  border: 1px #ccc solid;
   display: block;
-  background-size: 60px 60px;
+  background-size: cover !important;
+  margin: 0 10px 0 0;
+}
+div.mini-cart div.arrow-up {
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+  border-bottom: 20px solid rgb(235, 235, 235);
+  position: absolute;
+  left: 50%;
+  transform: translateX(-20px);
+  top: -20px;
 }
 </style>
